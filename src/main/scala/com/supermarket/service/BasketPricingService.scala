@@ -9,7 +9,14 @@ class BasketPricingService {
       // TODO: throw exception on found val
       itemPrice = itemPricing.pricesPerProduct(sku)
     } yield {
-      quantity * itemPrice.price
+      val regularPrice = itemPrice.price
+      itemPrice.specialPriceMaybe.map {
+        case (specialQuantity, specialPrice) =>
+          quantity / specialQuantity * specialPrice +
+            quantity % specialQuantity * regularPrice
+      }.getOrElse {
+        quantity * regularPrice
+      }
     }
     pricesPerSku.sum
   }

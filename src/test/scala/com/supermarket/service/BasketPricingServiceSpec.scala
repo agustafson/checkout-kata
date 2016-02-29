@@ -1,7 +1,6 @@
 package com.supermarket.service
 
 import com.supermarket
-import com.supermarket.model
 import com.supermarket.model._
 import org.specs2.matcher.MatchResult
 import org.specs2.mutable.Specification
@@ -15,7 +14,9 @@ class BasketPricingServiceSpec extends Specification {
   )
   val basketPricingService = new BasketPricingService
 
-  //def checkPrice(basket: Basket, expectedPrice: Price)
+  def checkPrice(basket: Basket, expectedPrice: Quantity): MatchResult[supermarket.model.Price] = {
+    basketPricingService.calculateTotalPrice(itemPricing, basket) ==== expectedPrice
+  }
 
   "BasketPricingService" should {
     "calculateTotalPrice" >> {
@@ -28,11 +29,8 @@ class BasketPricingServiceSpec extends Specification {
 
       "for a single type of item with a multiple price discount" in {
         checkPrice(Basket().addItem('B').addItem('B'), 45)
+        checkPrice(Basket().addItem('A').addItem('A').addItem('A').addItem('A').addItem('A'), 230)
       }
     }
-  }
-
-  def checkPrice(basket: Basket, expectedPrice: Quantity): MatchResult[supermarket.model.Price] = {
-    basketPricingService.calculateTotalPrice(itemPricing, basket) ==== expectedPrice
   }
 }
