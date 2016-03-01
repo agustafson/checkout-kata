@@ -1,6 +1,6 @@
 package com.supermarket.service
 
-import com.supermarket.model.{PricingRules, Price, Basket}
+import com.supermarket.model._
 
 class BasketPricingService {
   def calculateTotalPrice(pricingRules: PricingRules, basket: Basket): Price = {
@@ -9,14 +9,7 @@ class BasketPricingService {
       // TODO: throw exception on found val
       itemPrice = pricingRules.productPricingRule(sku)
     } yield {
-      val regularPrice = itemPrice.price
-      itemPrice.specialPriceMaybe.map {
-        case (specialQuantity, specialPrice) =>
-          quantity / specialQuantity * specialPrice +
-            quantity % specialQuantity * regularPrice
-      }.getOrElse {
-        quantity * regularPrice
-      }
+      itemPrice.totalPrice(quantity)
     }
     pricesPerSku.sum
   }
