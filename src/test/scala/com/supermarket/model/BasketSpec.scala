@@ -6,14 +6,14 @@ class BasketSpec extends Specification {
 
   "Basket" should {
     "add a single item" in {
-      Basket().addItem('A').items ==== Map('A' -> 1)
+      Basket().addItem(Sku('A')).items ==== Map(Sku('A') -> 1)
     }
     "add a single item for each SKU" in {
-      Basket().addItem('A').addItem('B').items ==== Map('A' -> 1, 'B' -> 1)
+      Basket().addItem(Sku('A')).addItem(Sku('B')).items ==== Map(Sku('A') -> 1, Sku('B') -> 1)
     }
     "add multiple items" in {
-      val basket = Basket().addItem('A').addItem('B').addItem('A').addItem('A').addItem('C').addItem('B')
-      basket.items ==== Map('A' -> 3, 'B' -> 2, 'C' -> 1)
+      val basket = Basket().addItem(Sku('A')).addItem(Sku('B')).addItem(Sku('A')).addItem(Sku('A')).addItem(Sku('C')).addItem(Sku('B'))
+      basket.items ==== Map(Sku('A') -> 3, Sku('B') -> 2, Sku('C') -> 1)
     }
   }
 }
