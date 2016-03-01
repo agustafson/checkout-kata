@@ -10,7 +10,7 @@ class SkuSpec extends Specification with ScalaCheck {
         if (ch.isLetter && ch.isUpper)
           Sku(ch).underlying ==== ch
         else
-          Sku(ch) must throwA(new IllegalArgumentException(s"Cannot parse $ch as SKU"))
+          Sku(ch) must throwA(new InvalidSkuException(ch))
       }
     }
   }
