@@ -6,7 +6,7 @@ import org.specs2.matcher.MatchResult
 import org.specs2.mutable.Specification
 
 class BasketPricingServiceSpec extends Specification {
-  val itemPricing = new ItemPricing(
+  val pricingRules = new PricingRules(
     'A' -> ItemPrice(50, Some(3, 130)),
     'B' -> ItemPrice(30, Some(2, 45)),
     'C' -> ItemPrice(20, None),
@@ -15,7 +15,7 @@ class BasketPricingServiceSpec extends Specification {
   val basketPricingService = new BasketPricingService
 
   def checkPrice(basket: Basket, expectedPrice: Quantity): MatchResult[supermarket.model.Price] = {
-    basketPricingService.calculateTotalPrice(itemPricing, basket) ==== expectedPrice
+    basketPricingService.calculateTotalPrice(pricingRules, basket) ==== expectedPrice
   }
 
   "BasketPricingService" should {

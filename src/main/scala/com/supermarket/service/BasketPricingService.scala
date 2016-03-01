@@ -1,13 +1,13 @@
 package com.supermarket.service
 
-import com.supermarket.model.{ItemPricing, Price, Basket}
+import com.supermarket.model.{PricingRules, Price, Basket}
 
 class BasketPricingService {
-  def calculateTotalPrice(itemPricing: ItemPricing, basket: Basket): Price = {
+  def calculateTotalPrice(pricingRules: PricingRules, basket: Basket): Price = {
     val pricesPerSku = for {
       (sku, quantity) <- basket.items
       // TODO: throw exception on found val
-      itemPrice = itemPricing.pricesPerProduct(sku)
+      itemPrice = pricingRules.pricesPerProduct(sku)
     } yield {
       val regularPrice = itemPrice.price
       itemPrice.specialPriceMaybe.map {
