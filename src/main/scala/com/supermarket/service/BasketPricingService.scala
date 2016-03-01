@@ -4,12 +4,11 @@ import com.supermarket.model._
 
 class BasketPricingService {
   def calculateTotalPrice(pricingRules: PricingRules, basket: Basket): Price = {
-    val pricesPerSku = for {
-      (sku, quantity) <- basket.items
-      // TODO: throw exception on found val
-      itemPrice = pricingRules.productPricingRule(sku)
-    } yield {
-      itemPrice.totalPrice(quantity)
+    val pricesPerSku = basket.items.map {
+      case (sku, quantity) =>
+        pricingRules.productPricingRule(sku)
+          .map(_.totalPrice(quantity))
+          .getOrElse(throw new UnknownProductException(sku))
     }
     pricesPerSku.sum
   }

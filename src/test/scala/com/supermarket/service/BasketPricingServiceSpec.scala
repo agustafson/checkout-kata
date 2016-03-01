@@ -31,6 +31,11 @@ class BasketPricingServiceSpec extends Specification {
         checkPrice(Basket().addItem(Sku('B')).addItem(Sku('B')), 45)
         checkPrice(Basket().addItem(Sku('A')).addItem(Sku('A')).addItem(Sku('A')).addItem(Sku('A')).addItem(Sku('A')), 230)
       }
+
+      "ensure unknown SKUs are invalid" in {
+        val unknownSku = Sku('Z')
+        basketPricingService.calculateTotalPrice(pricingRules, Basket().addItem(unknownSku)) must throwA(new UnknownProductException(unknownSku))
+      }
     }
   }
 }
