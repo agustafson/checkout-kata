@@ -1,9 +1,9 @@
 package com.supermarket.model
 
-case class PricingRules(private val pricesPerProduct: Map[SKU, PricingRule]) {
-  def this(itemPrices: (SKU, PricingRule)*) = this(itemPrices.toMap)
+case class PricingRules(private val pricesPerProduct: Map[Sku, PricingRule]) {
+  def this(itemPrices: (Sku, PricingRule)*) = this(itemPrices.toMap)
 
-  def productPricingRule(sku: SKU) = {
+  def productPricingRule(sku: Sku) = {
     pricesPerProduct(sku)
   }
 }
