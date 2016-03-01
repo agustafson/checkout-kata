@@ -7,7 +7,7 @@ class BasketPricingService {
     val pricesPerSku = for {
       (sku, quantity) <- basket.items
       // TODO: throw exception on found val
-      itemPrice = pricingRules.pricesPerProduct(sku)
+      itemPrice = pricingRules.productPricingRule(sku)
     } yield {
       val regularPrice = itemPrice.price
       itemPrice.specialPriceMaybe.map {

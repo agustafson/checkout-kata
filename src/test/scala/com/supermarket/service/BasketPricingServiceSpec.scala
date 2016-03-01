@@ -7,10 +7,10 @@ import org.specs2.mutable.Specification
 
 class BasketPricingServiceSpec extends Specification {
   val pricingRules = new PricingRules(
-    'A' -> ItemPrice(50, Some(3, 130)),
-    'B' -> ItemPrice(30, Some(2, 45)),
-    'C' -> ItemPrice(20, None),
-    'D' -> ItemPrice(15, None)
+    'A' -> PricingRule(50, Some(3, 130)),
+    'B' -> PricingRule(30, Some(2, 45)),
+    'C' -> PricingRule(20, None),
+    'D' -> PricingRule(15, None)
   )
   val basketPricingService = new BasketPricingService
 
